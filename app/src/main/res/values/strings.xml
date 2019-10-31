@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BUKU</string>
+    <string name="buku_name">Nama Buku</string>
+    <string name="detail">Detail</string>
+    <string name="list">List</string>
+    <string name="favorite">Favorite</string>
+    <string name="share">Share</string>
+    <string name="List_Buku">List Buku</string>
+    <string name="About">About</string>
+    <string name="sumanda_purba">SUMANDA PURBA</string>
+    <string name="manda">manda</string>
+    <string name="mandamanda49_gmail_com">mandamanda49@gmail.com</string>
+</resources>
