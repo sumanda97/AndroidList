@@ -1,40 +1,37 @@
 package com.dicoding.picodiploma.buku;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 
 public class Details extends AppCompatActivity {
-
+    private ImageView photo;
+    private TextView name, detail;
+    public static final String EXTRA_NAMA = "extra_nama";
+    public static final String EXTRA_DETAILS = "extra_details";
+    public static final String EXTRA_LINK = "extra_link";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
-        grabIntent();
-    }
 
-    private void grabIntent() {
-        String item_name = getIntent().getStringExtra("name");
-        String item_detail = getIntent().getStringExtra("detail");
-        int item_photo = getIntent().getIntExtra("photo",0);
+    String nama = getIntent().getStringExtra(EXTRA_NAMA);
+    String details = getIntent().getStringExtra(EXTRA_DETAILS);
+    int link = getIntent().getIntExtra(EXTRA_LINK,0);
+    setContentView(R.layout.item_row_buku);
 
-        TextView name = findViewById(R.id.name);
-        TextView detail = findViewById(R.id.detail);
-        ImageView photo = findViewById(R.id.photo);
-
-        name.setText(item_name);
-        detail.setText(item_detail);
-
+    photo = findViewById(R.id.img_item_photo);
+    name = findViewById(R.id.tv_item_name);
+    detail = findViewById(R.id.tv_item_detail);
         Glide.with(this)
-                .load(item_photo)
-                .apply(new RequestOptions().override(550,550))
+                .load(link)
                 .into(photo);
+        name.setText(nama);
+        detail.setText(details);
+
     }
 }

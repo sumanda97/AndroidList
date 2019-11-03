@@ -2,6 +2,7 @@ package com.dicoding.picodiploma.buku;
 
 import android.content.Context;
 import android.content.Intent;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
-public class ListBukuAdapter extends RecyclerView.Adapter<ListBukuAdapter.ListViewHolder>implements View.OnClickListener {
+public class ListBukuAdapter extends RecyclerView.Adapter<ListBukuAdapter.ListViewHolder>{
     private ArrayList<Buku> listBuku;
     private OnItemClickCallback onItemClickCallback;
 
@@ -50,21 +51,14 @@ public class ListBukuAdapter extends RecyclerView.Adapter<ListBukuAdapter.ListVi
 
         holder.tvName.setText(buku.getName());
         holder.tvDetail.setText(buku.getDetail());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickCallback.onItemClicked(listBuku.get(holder.getAdapterPosition()));
-                    Intent intent = new Intent(holder.itemView.getContext(),Details.class);
 
-                    intent.putExtra("photo",listBuku.get(holder.getAdapterPosition()).getName());
-                    intent.putExtra("name",listBuku.get(holder.getAdapterPosition()).getDetail());
-                    intent.putExtra("detail",listBuku.get(holder.getAdapterPosition()).getPhoto());
-
-                    holder.itemView.getContext().startActivity(intent);
-
-                }
-        });
-
+        final Context context = holder.itemView.getContext();
+        Glide.with(holder.itemView.getContext())
+                .load(buku.getPhoto())
+                .apply(new RequestOptions().override(55, 55))
+                .into(holder.imgPhoto);
+        holder.tvName.setText(buku.getName());
+        holder.tvDetail.setText(buku.getDetail());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,13 +74,6 @@ public class ListBukuAdapter extends RecyclerView.Adapter<ListBukuAdapter.ListVi
     public int getItemCount() {
         return listBuku.size();
     }
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
-
     class ListViewHolder extends RecyclerView.ViewHolder {
         ImageView imgPhoto;
         TextView tvName, tvDetail;

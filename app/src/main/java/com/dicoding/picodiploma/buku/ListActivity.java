@@ -29,8 +29,11 @@ public class ListActivity extends AppCompatActivity {
         rvBuku = findViewById(R.id.rv_heroes);
         rvBuku.setHasFixedSize(true);
 
+
+
         list.addAll(BukuData.getListData());
         showRecyclerList();
+
 
 
     }
@@ -38,13 +41,18 @@ public class ListActivity extends AppCompatActivity {
 
     private void showRecyclerList() {
         rvBuku.setLayoutManager(new LinearLayoutManager(this));
-        ListBukuAdapter listBukuAdapter = new ListBukuAdapter(list);
+        final ListBukuAdapter listBukuAdapter = new ListBukuAdapter(list);
         rvBuku.setAdapter(listBukuAdapter);
 
         listBukuAdapter.setOnItemClickCallback(new ListBukuAdapter.OnItemClickCallback() {
             @Override
             public void onItemClicked(Buku data) {
-                showSelectedBuku(data);
+                Intent intent = new Intent(ListActivity.this,Details.class);
+                intent.putExtra(Details.EXTRA_NAMA, data.getName());
+                intent.putExtra(Details.EXTRA_DETAILS, data.getDetail());
+                intent.putExtra(Details.EXTRA_LINK, data.getPhoto());
+                startActivity(intent);
+
             }
         });
     }
@@ -80,5 +88,7 @@ public class ListActivity extends AppCompatActivity {
 
     private void showSelectedBuku(Buku data) {
         Toast.makeText(this, "Kamu memilih " + data.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ListActivity.this,Details.class);
+        startActivity(intent);
     }
 }
